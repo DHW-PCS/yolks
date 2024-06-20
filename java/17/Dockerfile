@@ -28,7 +28,7 @@ LABEL       org.opencontainers.image.source="https://github.com/DHW-PCS/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN 		apt-get update -y \
- 			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 python3 \
+ 			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 python3.11 \
  			&& useradd -d /home/container -m container
 
 USER        container
