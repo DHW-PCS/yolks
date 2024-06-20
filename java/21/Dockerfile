@@ -32,10 +32,12 @@ RUN 		apt-get update -y \
 			&& useradd -d /home/container -m container
 RUN         curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
             && python3.11 get-pip.py
-RUN         pip install mcdreforged
+
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
+RUN         pip install mcdreforged
+RUN         mcdreforged init
 
 COPY        ./../entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
