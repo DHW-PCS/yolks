@@ -38,7 +38,7 @@ printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mjava -version\n"
 java -version
 
 find ./plugins -maxdepth 2 \( -name "*.pyz" -o -name "requirements.txt" -o -name "*.mcdr" -o -name "*.zip"\) | while read FILE; do
-    if [[ $FILE == *.pyz -o $FILE == *.mcdr -o $FILE == *.zip ]]; then
+    if [[ $FILE == *.pyz || $FILE == *.mcdr || $FILE == *.zip ]]; then
         UNZIP_DIR=$(mktemp -d)
         unzip -q $FILE -d $UNZIP_DIR
         if [ -f "$UNZIP_DIR/requirements.txt" ]; then
