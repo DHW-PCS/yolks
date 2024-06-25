@@ -37,18 +37,19 @@ cd /home/container || exit 1
 printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mjava -version\n"
 java -version
 
-find ./plugins -maxdepth 2 \( -name "*.pyz" -o -name "requirements.txt" -o -name "*.mcdr" -o -name "*.zip"\) | while read FILE; do
+# Find and process plugin files
+find ./plugins -maxdepth 2 \( -name "*.pyz" -o -name "requirements.txt" -o -name "*.mcdr" -o -name "*.zip" \) | while read -r FILE; do
     if [[ $FILE == *.pyz || $FILE == *.mcdr || $FILE == *.zip ]]; then
         UNZIP_DIR=$(mktemp -d)
-        unzip -q $FILE -d $UNZIP_DIR
+        unzip -q "$FILE" -d "$UNZIP_DIR"
         if [ -f "$UNZIP_DIR/requirements.txt" ]; then
-            print "\033[1m\033[33mcontainer@pterodactyl~ \033[0mpip install -r $UNZIP_DIR/requirements.txt\n"
+            printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mpip install -r %s\n" "$UNZIP_DIR/requirements.txt"
             pip install -r "$UNZIP_DIR/requirements.txt"
         fi
-        rm -rf $UNZIP_DIR
+        rm -rf "$UNZIP_DIR"
     else
-        print "\033[1m\033[33mcontainer@pterodactyl~ \033[0mpip install -r $FILE\n"
-        pip install -r $FILE
+        printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mpip install -r %s\n" "$FILE"
+        pip install -r "$FILE"
     fi
 done
 

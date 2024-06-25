@@ -28,7 +28,7 @@ LABEL       org.opencontainers.image.source="https://github.com/DHW-PCS/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN 		apt-get update -y \
-			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 python3.11 \
+			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 python3.11 unzip \
 			&& useradd -d /home/container -m container
 RUN         curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
             && python3.11 get-pip.py
@@ -37,7 +37,6 @@ RUN         pip install mcdreforged
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
-RUN         mcdreforged init
 
 COPY        ./../entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
