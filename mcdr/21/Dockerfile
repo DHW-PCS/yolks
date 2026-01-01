@@ -29,9 +29,15 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates tzdata python3-dev py3-pip build-base unzip \
 				&& adduser -D -h /home/container container
-RUN 		pip3 install mcdreforged --break-system-packages
-
 USER        container
+RUN pip3 install --no-cache-dir --break-system-packages \
+    mcdreforged \
+    pydantic \
+    pydantic-core \
+    psutil \
+    sqlalchemy \
+    xxhash \
+    zstandard
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
