@@ -20,20 +20,21 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH eclipse-temurin:21-jdk-alpine-3.23
+FROM        --platform=$TARGETOS/$TARGETARCH eclipse-temurin:21-jdk-noble
 
 LABEL       author="DHW PCS Maintainers" maintainer="maintainers@dhw.one"
 
 LABEL       org.opencontainers.image.source="https://github.com/DHW-PCS/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apk add --update --no-cache ca-certificates tzdata python3-dev py3-pip build-base unzip \
-				&& adduser -D -h /home/container container
+RUN 		apt update -y \
+			&& apt install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 python3-dev python3-pip unzip \
+			&& useradd -d /home/container -m container
 RUN 		pip3 install mcdreforged --break-system-packages
 
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
-COPY        ./entrypoint-posix.sh /entrypoint.sh
-CMD         [ "/bin/ash", "/entrypoint.sh" ]
+COPY        ./../entrypoint.sh /entrypoint.sh
+CMD         [ "/bin/bash", "/entrypoint.sh" ]

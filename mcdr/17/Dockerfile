@@ -31,6 +31,7 @@ RUN 		apt update -y \
 			&& apt install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 python3-dev python3-pip unzip \
 			&& useradd -d /home/container -m container
 RUN 		pip3 install mcdreforged --break-system-packages
+
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
