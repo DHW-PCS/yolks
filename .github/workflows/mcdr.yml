@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         tag:
-          - 17
+          # - 17
           - 21
     permissions:
       packages: write
