@@ -28,10 +28,10 @@ LABEL       org.opencontainers.image.source="https://github.com/DHW-PCS/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN 		apt-get update -y \
- 			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 python3 unzip \
+ 			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 python3 python3-pip unzip \
  			&& useradd -d /home/container -m container
-RUN         curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-            && python3 get-pip.py
+# RUN         curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+#             && python3 get-pip.py
 RUN         pip install mcdreforged
 
 USER        container
