@@ -44,12 +44,12 @@ find ./plugins -maxdepth 2 \( -name "*.pyz" -o -name "requirements.txt" -o -name
         unzip -q "$FILE" -d "$UNZIP_DIR"
         if [ -f "$UNZIP_DIR/requirements.txt" ]; then
             printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mpip install -r %s\n" "$UNZIP_DIR/requirements.txt"
-            pip install -r "$UNZIP_DIR/requirements.txt"
+            pip install -r "$UNZIP_DIR/requirements.txt" --break-system-packages
         fi
         rm -rf "$UNZIP_DIR"
     else
         printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mpip install -r %s\n" "$FILE"
-        pip install -r "$FILE"
+        pip install -r "$FILE" --break-system-packages
     fi
 done
 
